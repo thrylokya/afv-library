@@ -3,7 +3,7 @@ name: searching-media
 description: Use when the user wants to FIND, SEARCH, or RETRIEVE images, photos, pictures, media, visuals, graphics, icons, illustrations, banners, thumbnails, logos, hero images, backgrounds, or visual assets. Trigger on search, find, get, fetch, retrieve, browse, look up, locate, or add existing media requests. ROUTING skill that presents search source options (Salesforce CMS, Data Cloud, Unsplash) and waits for user selection before calling any search tools. ALWAYS show numbered options first - NEVER call search_electronic_media or search_media_cms_channels directly. DO NOT trigger for GENERATE, CREATE, MAKE, DESIGN, or BUILD requests.
 metadata:
   author: afv-library
-  version: "1.2"
+  version: "1.0"
 ---
 
 # Media Search
