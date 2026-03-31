@@ -1,3 +1,12 @@
+## [1.6.3](https://github.com/forcedotcom/afv-library/compare/1.6.2...1.6.3) (2026-03-31)
+
+
+### Bug Fixes
+
+* derive router basename from base href at runtime @W-21338965@ ([#154](https://github.com/forcedotcom/afv-library/issues/154)) ([3024591](https://github.com/forcedotcom/afv-library/commit/30245915c2954cd2a828e5828e6324394ab9b6cf))
+
+
+
 ## [1.6.2](https://github.com/forcedotcom/afv-library/compare/1.6.1...1.6.2) (2026-03-31)
 
 
