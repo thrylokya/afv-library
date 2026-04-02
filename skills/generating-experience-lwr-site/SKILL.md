@@ -1,6 +1,6 @@
 ---
 name: generating-experience-lwr-site
-description: "Creates, modifies, or manages Salesforce Experience Cloud LWR sites via DigitalExperience metadata. Always trigger when users mention Experience sites, LWR sites, DigitalExperience, Experience Cloud, community sites, portals, creating pages, adding routes, views, theme layouts, branding sets, previewing sites, or any DigitalExperience bundle work. Also use when users mention specific content types like sfdc_cms__route, sfdc_cms__themeLayout, etc. or when troubleshooting site deployment."
+description: "Creates, modifies, or manages Salesforce Experience Cloud LWR sites via DigitalExperience metadata. Always trigger when users mention Experience sites, LWR sites, DigitalExperience, Experience Cloud, community sites, portals, creating pages, adding routes, views, theme layouts, branding sets, previewing sites, or any DigitalExperience bundle work. Also use when users mention specific content types like sfdc_cms__route, sfdc_cms__themeLayout, etc. or when troubleshooting site deployment. ALWAYS trigger for ANY guest sharing rule (metadata type sharingGuestRules) creation/modification, guest user access, sharing records to guest users, or when user provides a guest user ID (15 or 18 characters starting with 005)"
 ---
 
 # Experience LWR Site Builder
@@ -29,6 +29,7 @@ When working with Experience LWR sites:
 - Adding pages (routes + views)
 - Configuring LWC components, layouts, themes, or branding styles
 - Setting up guest user access (public sites)
+- Creating or modifying **guest sharing rules** (`sharingGuestRules`) for any Salesforce object (Account, Case, Contact, etc.) — including when the user refers to a "Site Guest User" username or any guest user by ID
 - Troubleshoot deployment errors related to Experience LWR Sites
 
 **Supported Template**: Build Your Own (LWR) - `talon-template-byo`
@@ -100,6 +101,8 @@ Before doing anything, you **MUST ALWAYS** load them first if they match user in
 - [configure-content-brandingSet.md](docs/configure-content-brandingSet.md) - Branding with color patterns/WCAG
 - [handle-component-and-region-ids.md](docs/handle-component-and-region-ids.md) - **UUID generation (CRITICAL)** for component and region ids used in views and themeLayout.
 - [handle-ui-components.md](docs/handle-ui-components.md) - Component discovery, schemas, insertion, configuration
+- [configure-guest-sharing-rules.md](docs/configure-guest-sharing-rules.md) - **Guest sharing rules** (`sharingGuestRules`) for public sites — use for any request involving "guest sharing rule", "Site Guest User", or sharing object records with unauthenticated visitors
+- [update-site-urls.md](docs/update-site-urls.md) - **Updating site URLs** - URL architecture, workflow for updating `urlPathPrefix` in DigitalExperienceConfig, Network, and CustomSite
 
 ## Common Workflows
 
@@ -145,8 +148,7 @@ Before doing anything, you **MUST ALWAYS** load them first if they match user in
 
 **Steps** (Follow the steps sequentially. Do not skip any step before proceeding):
 
-- [ ] Check with user whether this new theme layout reuses an existing theme layout component or requires a new one.
-- [ ] MUST read [handle-ui-components.md](docs/handle-ui-components.md) if creating a new theme layout component.
+- [ ] **CRITICAL**:Before doing anything else, MUST Check with user whether this new theme layout reuses an existing theme layout Lightning web component or requires a new one. If it requires a new one, make sure to read [handle-ui-components.md](docs/handle-ui-components.md) to create the new theme layout component before proceeding. DO NOT skip this step even if doing so would be faster or more efficient.
 - [ ] MUST read [configure-content-themeLayout.md](docs/configure-content-themeLayout.md).
 - [ ] MUST read [configure-content-view.md](docs/configure-content-view.md) if need to apply theme layout to pages
 
@@ -186,6 +188,10 @@ Before doing anything, you **MUST ALWAYS** load them first if they match user in
 }
 ```
 
+### Configuring Guest User Sharing Rules
+
+- [ ] MUST read [configure-guest-sharing-rules.md](docs/configure-guest-sharing-rules.md) and follow all steps there.
+
 ### Retrieving Site Preview and Builder URLs After Deployment
 
 **Use when** user requests to preview a site, access a builder site, or after successfully deploying a site.
@@ -206,6 +212,15 @@ The site developer name can be found in the CustomSite filename (e.g., `sites/My
 
 If the site is not found, an error message will be returned indicating that the site may not be deployed. Ensure the site has been successfully deployed before calling this action.
 
+### Updating Experience Site URLs
+
+**Use when** user wants to update or change site URLs (urlPathPrefix).
+
+**Steps** (Follow the steps sequentially. Do not skip any step before proceeding):
+
+- [ ] MUST read [update-site-urls.md](docs/update-site-urls.md) to understand the three-component architecture and URL update workflow
+- [ ] Follow the step-by-step workflow in the doc to update URLs consistently across all three components (DigitalExperienceConfig, Network, CustomSite)
+
 ### Validation & Deployment
 
 Use `sf` CLI to validate and deploy. Access help docs by attaching `--help`, e.g.:
@@ -213,10 +228,16 @@ Use `sf` CLI to validate and deploy. Access help docs by attaching `--help`, e.g
 - `sf project deploy --help`
 - `sf project deploy validate --help`
 
-Note that metadata types are space-delimited.
+Note that metadata types are space-delimited. **Never** wrap them in quotes or use commas. For example, `--metadata "DigitalExperienceBundle DigitalExperience"` is **incorrect** — always use `--metadata DigitalExperienceBundle DigitalExperience`.
 
 **Validate**:
-`sf project deploy validate --metadata DigitalExperienceBundle DigitalExperience DigitalExperienceConfig Network CustomSite --target-org ${usernameOrAlias}`
+
+```bash
+sf project deploy validate --metadata DigitalExperienceBundle DigitalExperience DigitalExperienceConfig Network CustomSite --target-org ${usernameOrAlias}
+```
 
 **Deploy**:
-`sf project deploy start --metadata DigitalExperienceBundle DigitalExperience DigitalExperienceConfig Network CustomSite --target-org ${usernameOrAlias}`
+
+```bash
+sf project deploy start --metadata DigitalExperienceBundle DigitalExperience DigitalExperienceConfig Network CustomSite --target-org ${usernameOrAlias}
+```
