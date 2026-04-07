@@ -1,3 +1,30 @@
+## [1.6.8](https://github.com/forcedotcom/afv-library/compare/1.6.7...1.6.8) (2026-04-07)
+
+
+### Bug Fixes
+
+* trigger ui-bundle skill for React app prompts @W-21916680@ ([#175](https://github.com/forcedotcom/afv-library/issues/175)) ([1806c89](https://github.com/forcedotcom/afv-library/commit/1806c89b28a889de8292be62e751acb75a680d6b))
+
+
+
+## [1.6.7](https://github.com/forcedotcom/afv-library/compare/1.6.6...1.6.7) (2026-04-03)
+
+
+### Bug Fixes
+
+* tighten ui-bundle skill descriptions to reduce false triggers @W-21800526@ ([#162](https://github.com/forcedotcom/afv-library/issues/162)) ([77108ba](https://github.com/forcedotcom/afv-library/commit/77108bae20bc67c92acefa019b6e11a7192d26d0))
+
+
+
+## [1.6.6](https://github.com/forcedotcom/afv-library/compare/1.6.5...1.6.6) (2026-04-02)
+
+
+### Bug Fixes
+
+* condense using-ui-bundle-salesforce-data reference into skill.md @W-21685788 ([#161](https://github.com/forcedotcom/afv-library/issues/161)) ([4ad7963](https://github.com/forcedotcom/afv-library/commit/4ad796346ec366379cc7de840c3c38e3c4521bb2))
+
+
+
 ## [1.6.5](https://github.com/forcedotcom/afv-library/compare/1.6.4...1.6.5) (2026-04-01)
 
 
