@@ -280,7 +280,11 @@ Ask the user to provide:
 
 ## Presenting Search Results
 
-Parse the tool response and present **ALL** results as numbered options. Show the image title only — do not display the URL. When the user selects an option, use the URL internally to apply the image.
+**Your action MUST use the `ask_followup_question` tool to present search results as options.**
+1. **Parse the tool response** — Extract all image results (title and source)
+2. **Use `ask_followup_question`** to present ALL results as selectable options. Show the image title only — do not display the URL.
+3. **Receive the user's selection** from the tool response
+4. **Then** apply the selected image
 
 ```
 I found 4 images. Which one would you like to use?
@@ -301,6 +305,7 @@ I found 4 images. Which one would you like to use?
 **Never auto-select an image.** Always wait for user choice.
 
 ## Applying the Selected Image
+
 
 After the user chooses:
 
